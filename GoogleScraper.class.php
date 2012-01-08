@@ -57,16 +57,16 @@ class GoogleScraper
 	// This function opens the preference page and saves the count for "Results per page" to 100
 	function setPreference() {
 		$data=$this->getpagedata('http://www.google.com/preferences?hl=en');
-		preg_match('/<input type="hidden" name="sig" value="(.*?)">/', $data, $matches);
+		preg_match('/<input type=hidden name="sig" value="(.*?)">/', $data, $matches);
 		$this->pause();
-		$this->getpagedata('http://www.google.com/setprefs?sig='.urlencode($matches[1]).'&hl=en&safeui=images&suggon=2&num=100&q=&prev=http%3A%2F%2Fwww.google.com%2F&submit2=Save+Preferences+');
+		$this->getpagedata('http://www.google.com/setprefs?sig='.urlencode($matches[1]).'&hl=en&lr=lang_en&safeui=images&suggon=2&newwindow=0&num=100&q=&prev=http%3A%2F%2Fwww.google.com%2F&submit2=Save+Preferences+');
 	}
 
 	function fetchUrlList()
 	{		
 		for($i=0;$i<1001;$i=$i+100) {
 			$data=$this->getpagedata('http://www.google.com/search?q='.$this->keyword.'&num=100&hl=en&biw=1280&bih=612&prmd=ivns&ei='.$this->ei.'&start='.$i.'&sa=N');
-			preg_match('/ei=(.*?)&amp/', $data, $matches);
+			preg_match('/;ei=(.*?)&amp/', $data, $matches);
 			$this->ei=urlencode($matches[1]);
 			if ($data) {
 				if(preg_match("/sorry.google.com/", $data)) {
