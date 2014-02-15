@@ -1,7 +1,7 @@
 <?php
 /** 
 @author : Samay Bhavsar <samay@samay.info> 
-@Version : 1.0
+@Version : 1.1
 */ 
 class GoogleScraper
 {
@@ -9,7 +9,7 @@ class GoogleScraper
 	var $urlList	=	"";
 	var $time1		=	4000000;
 	var $time2		=	8000000;
-	var $proxy		=	"200.123.187.165:8080";
+	var $proxy		=	"";
 	var $cookie		=	"";
 	var $header		=	"";
 	var $ei			=	"";
@@ -50,14 +50,14 @@ class GoogleScraper
 	function initGoogle() {
 		$data=$this->getpagedata('http://www.google.com');		//	Open google.com ( Might redirect to country specific site e.g. www.google.co.in)
 		$this->pause();
-		$this->getpagedata('http://www.google.com/ncr');		//	Moves back to google.com
+		$this->getpagedata('http://www.google.com/ncr');	//	Moves back to google.com
 	}
 
 
 	// This function opens the preference page and saves the count for "Results per page" to 100
 	function setPreference() {
 		$data=$this->getpagedata('http://www.google.com/preferences?hl=en');
-		preg_match('/<input type=hidden name="sig" value="(.*?)">/', $data, $matches);
+		preg_match('/<input value="(.*?)" name="sig" type="hidden">/', $data, $matches);
 		$this->pause();
 		$this->getpagedata('http://www.google.com/setprefs?sig='.urlencode($matches[1]).'&hl=en&lr=lang_en&safeui=images&suggon=2&newwindow=0&num=100&q=&prev=http%3A%2F%2Fwww.google.com%2F&submit2=Save+Preferences+');
 	}
@@ -66,7 +66,7 @@ class GoogleScraper
 	{		
 		for($i=0;$i<1001;$i=$i+100) {
 			$data=$this->getpagedata('http://www.google.com/search?q='.$this->keyword.'&num=100&hl=en&biw=1280&bih=612&prmd=ivns&ei='.$this->ei.'&start='.$i.'&sa=N');
-			preg_match('/;ei=(.*?)&amp/', $data, $matches);
+			preg_match('/;ei=(.*?)&amp;ved/', $data, $matches);
 			$this->ei=urlencode($matches[1]);
 			if ($data) {
 				if(preg_match("/sorry.google.com/", $data)) {
