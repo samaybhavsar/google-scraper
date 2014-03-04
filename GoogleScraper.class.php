@@ -88,7 +88,7 @@ class GoogleScraper
 		}
 	}
 
-	function getUrlList($keyword,$proxy) {
+	function getUrlList($keyword,$proxy='') {
 		$this->keyword=$keyword;
 		$this->proxy=$proxy;
 		$this->initGoogle();
