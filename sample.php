@@ -1,8 +1,8 @@
 <?php
-ini_set ( 'max_execution_time', 0); 
+ini_set ( 'max_execution_time', 0);
 include 'GoogleScraper.class.php';
 $obj=new GoogleScraper();
 // Pass your keyword and proxy ip here.
-$arr=$obj->getUrlList('keyword','111.11.27.194:80');
+$arr=$obj->getUrlList('keyword','');
 print_r($arr);
 ?>
