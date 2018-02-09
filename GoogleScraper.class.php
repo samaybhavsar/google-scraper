@@ -1,12 +1,12 @@
 <?php
 /**
 @author : Samay Bhavsar <samay@samay.info>
-@Version : 1.1
+@Version : 1.2
 */
 class GoogleScraper
 {
 	var $keyword	=	"testing";
-	var $urlList	=	"";
+	var $urlList	=	array();
 	var $time1		=	4000000;
 	var $time2		=	8000000;
 	var $proxy		=	"";
@@ -66,16 +66,29 @@ class GoogleScraper
 	{
 		for($i=0;$i<1001;$i=$i+100) {
 			$data=$this->getpagedata('http://www.google.com/search?q='.$this->keyword.'&num=100&hl=en&biw=1280&bih=612&prmd=ivns&ei='.$this->ei.'&start='.$i.'&sa=N');
-			preg_match('/;ei=(.*?)&amp;start/', $data, $matches);
-			$this->ei=urlencode($matches[1]);
+			preg_match('/;ei=(.*?)&amp;/', $data, $matches);
+			if(empty($matches))
+			{
+				preg_match('/;sei=(.*?)"/', $data, $matches);
+				$this->ei=urlencode($matches[1]);
+
+				if(empty($matches))
+				{
+					file_put_contents("data.html",$data);
+					exit();
+				}
+			} else {
+				$this->ei=urlencode($matches[1]);
+			}
+
 			if ($data) {
 				if(preg_match("/sorry.google.com/", $data)) {
 					echo "You are blocked";
 					exit;
 				} else {
 					preg_match_all('@<h3\s*class="r">\s*<a[^<>]*href="[^<>]*?q=([^<>]*)&amp;sa[^<>]*>(.*)</a>\s*</h3>@siU', $data, $matches);
-					for ($j = 0; $j < count($matches[2]); $j++) {
-						$this->urlList[] = $matches[1][$j];
+					for ($j = 0; $j < count($matches[1]); $j++) {
+						array_push($this->urlList, $matches[1][$j]);
 					}
 				}
 			}
