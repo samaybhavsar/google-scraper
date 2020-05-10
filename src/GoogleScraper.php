@@ -79,14 +79,14 @@ class GoogleScraper
             } else {
                 $this->ei=urlencode($matches[1]);
             }
-            echo $this->ei;
+            
             if ($data) {
                 if(preg_match("/sorry.google.com/", $data)) {
                     echo "You are blocked";
                     exit;
                 } else {
                     preg_match_all('@<div class="r"><a href="(.+?)" ([^<>]*)?><br><h3 ([^<>]*)?>(.*?)</h3><div ([^<>]*)?>(<div ([^<>]*)?>)?<cite ([^<>]*)?>(.*?)<span ([^<>]*)?>(.*?)</span></cite></div></a>@si', $data, $matches);
-                    print_r($matches);
+                    
                     for ($j = 0; $j < count($matches[1]); $j++) {
                         array_push($this->urlList, array('url' => $matches[1][$j], 'title' => $matches[4][$j]));
                     }
