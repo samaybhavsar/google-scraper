@@ -1,5 +1,5 @@
 {
-    "name": "samay/google-scaper",
+    "name": "samay/google-scraper",
     "description": "This class can retrieve search results from Google.",
     "type": "library",
     "license": "MIT",
