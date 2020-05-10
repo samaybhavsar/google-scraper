@@ -1,0 +1,20 @@
+{
+    "name": "samay/google-scaper",
+    "description": "This class can retrieve search results from Google.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samay Bhavsar",
+            "email": "samay@samay.info",
+            "homepage": "https://github.com/samaybhavsar/google-scraper"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "samay\\GoogleScraper\\": "src/"
+        }
+    }
+}
