@@ -7,7 +7,7 @@
 * with this source code in the file LICENSE.
 */
 
-//namespace samay\GoogleScraper;
+namespace Scraper;
 
 class GoogleScraper
 {

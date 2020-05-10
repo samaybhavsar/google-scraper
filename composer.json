@@ -14,7 +14,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "samay\\GoogleScraper\\": "src/"
+            "Scraper\\": "src/"
         }
     }
 }
